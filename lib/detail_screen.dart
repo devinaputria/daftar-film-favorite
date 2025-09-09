@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speed_programming/home_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   final Map<String, String> movie;
@@ -8,17 +9,72 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(movie["title"]!)),
-      body: Column(
-        children: [
-          Image.asset(movie["poster"]!),
-          const SizedBox(height: 16),
-          Text(
-            movie["title"]!,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          Text("Tahun: ${movie["year"]}"),
-        ],
+      appBar: AppBar(
+        title: Text(movie["title"]!),
+        backgroundColor: Colors.teal,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Poster film
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                movie["poster"]!,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 300,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Judul
+            Text(
+              movie["title"]!,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            // Tahun rilis
+            Text(
+              "Tahun: ${movie["year"]}",
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Genre
+            Text(
+              "Genre: ${movie["genre"] ?? '-'}",
+              style: const TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Sinopsis
+            const Text(
+              "Synopsis",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              movie["synopsis"] ?? "Sinopsis belum tersedia.",
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
+            ),
+          ],
+        ),
       ),
     );
   }
